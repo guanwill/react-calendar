@@ -1,0 +1,70 @@
+Arguments: 
+  /Users/will/.nvm/versions/node/v6.2.2/bin/node /usr/local/bin/yarn install
+
+PATH: 
+  /Users/will/.nvm/versions/node/v6.2.2/lib/node_modules/npm/bin/node-gyp-bin:/Users/will/learnetto/new-calendar-with-es6/node_modules/.bin:/Users/will/.nvm/versions/node/v6.2.2/bin:/Users/will/.rvm/gems/ruby-2.3.1/bin:/Users/will/.rvm/gems/ruby-2.3.1@global/bin:/Users/will/.rvm/rubies/ruby-2.3.1/bin:/Users/will/.rvm/bin:/opt/local/bin:/opt/local/sbin:/Applications/XAMPP/xamppfiles/bin:/Users/will/.nvm/versions/node/v6.2.2/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/ImageMagick/bin:/Applications/Postgres.app/Contents/Versions/latest/bin
+
+Yarn version: 
+  0.24.6
+
+Node version: 
+  6.2.2
+
+Platform: 
+  darwin x64
+
+npm manifest: 
+  {
+    "name": "react-webpack-rails-tutorial",
+    "version": "0.0.1",
+    "private": true,
+    "engines": {
+      "node": "6.9.0",
+      "npm": "4.1.1"
+    },
+    "scripts": {
+      "build:test": "webpack --config webpack.config.js",
+      "build:production": "NODE_ENV=production webpack --config webpack.config.js",
+      "build:development": "webpack -w --config webpack.config.js"
+    },
+    "cacheDirectories": ["node_modules", "client/node_modules"],
+    "dependencies": {
+      "babel-cli": "^6.24.1",
+      "babel-core": "^6.24.1",
+      "babel-loader": "^6.3.2",
+      "babel-runtime": "^6.23.0",
+      "babel-polyfill": "^6.23.0",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.24.1",
+      "babel-preset-stage-2": "^6.24.1",
+      "es5-shim": "^4.5.9",
+      "expose-loader": "^0.7.3",
+      "imports-loader": "^0.7.1",
+      "react": "^15.5.4",
+      "react-dom": "^15.5.4",
+      "react-on-rails": "6.10.1",
+      "webpack": "^2.3.3"
+    },
+    "devDependencies": {
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.23.0.tgz: Request failed "522 undefined"
+      at Request.res (/usr/local/Cellar/yarn/0.24.6/libexec/lib/yarn-cli.js:54448:20)
+      at emitOne (events.js:96:13)
+      at Request.emit (events.js:188:7)
+      at Request.onRequestResponse (/usr/local/Cellar/yarn/0.24.6/libexec/lib/yarn-cli.js:108740:10)
+      at emitOne (events.js:96:13)
+      at ClientRequest.emit (events.js:188:7)
+      at HTTPParser.parserOnIncomingClient (_http_client.js:472:21)
+      at HTTPParser.parserOnHeadersComplete (_http_common.js:105:23)
+      at TLSSocket.socketOnData (_http_client.js:361:20)
+      at emitOne (events.js:96:13)
+      at TLSSocket.emit (events.js:188:7)
