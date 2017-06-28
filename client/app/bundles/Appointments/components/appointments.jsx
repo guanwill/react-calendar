@@ -1,6 +1,11 @@
-class Appointments extends React.Component{
+import React from 'react';
+import AppointmentForm from './appointment_form';
+import {AppointmentsList} from './appointments_list'; //braces because its a name import. an es6 thing
+import update from 'immutability-helper';
 
-  constructor(props){
+export default class Appointments extends React.Component{
+
+  constructor(props, _railsContext){ //puting rails context here gives you helpful rails helper methods
       super(props) //calls the constructor of the parent class
       this.state = {
         appointments: this.props.appointments,
@@ -32,7 +37,7 @@ class Appointments extends React.Component{
   }
 
   addNewAppointment(appointment) {
-    const appointments = React.addons.update(this.state.appointments, { $push: [appointment]});
+    const appointments = update(this.state.appointments, { $push: [appointment]});
     this.setState({
       appointments: appointments.sort(function(a,b){
         return new Date(a.appt_time) - new Date(b.appt_time);
