@@ -12,3 +12,8 @@ export const FormErrors = ({formErrors}) =>
       )
     })}
   </div>
+
+//specifying what type the formError should be
+FormErrors.propTypes = {
+  formErrors: PropTypes.object.isRequired //it should be an object
+}
