@@ -15,9 +15,14 @@ export default class AppointmentForm extends React.Component{
     ]
   }
 
+  // example of using ref on an input. eg, we make use of titleinput ref to make field on focus
+  focus = () => {
+    this.titleInput.focus();
+  }
+
   handleChange = (e) => {
-    const fieldName = e.target.name;
-    const fieldValue = e.target.value;
+    const fieldName = this.titleInput.name;
+    const fieldValue = this.titleInput.value;
     this.props.onUserInput(fieldName, fieldValue, AppointmentForm.formValidations[fieldName]);
   }
 
@@ -43,8 +48,11 @@ export default class AppointmentForm extends React.Component{
 
         <form onSubmit={this.handleSubmit}>
           <input name='title' placeholder='Appointment Title'
+            ref={(input) => {this.titleInput = input}}
             value={this.props.title.value}
             onChange={this.handleChange} />
+
+          <input type="button" value="Focus on text input" onClick={this.focus}/>
 
           <Datetime input={false} open={true} inputProps={inputProps}
             value={moment(this.props.appt_time.value)}

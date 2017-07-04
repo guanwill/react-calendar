@@ -1,3 +1,4 @@
+
 import React from 'react';
 
 export const FormErrors = ({formErrors}) =>
@@ -15,5 +16,5 @@ export const FormErrors = ({formErrors}) =>
 
 //specifying what type the formError should be
 FormErrors.propTypes = {
-  formErrors: PropTypes.object.isRequired //it should be an object
+  formErrors: React.PropTypes.object.isRequired //it should be an object
 }
