@@ -31,11 +31,59 @@
 // }
 
 //further simplication
-import React from 'react';
-import { formatDate } from '../utils/format'
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router-dom'; //this is a react link library to create links. similar to a tag
+import { formatDate } from '../utils/format';
 
-export const Appointment = ({appointment}) =>
-  <div className='appointment'>
-    <h3>{appointment.title}</h3>
-    <p>{formatDate(appointment.appt_time)}</p>
-  </div>
+
+export default class Appointment extends React.Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      appointment: props.appointment
+    }
+  }
+
+  // specifying prop type for appointment. it must be an object and is required
+  static propTypes = {
+    appointment: PropTypes.object.isRequired
+  }
+
+  // setting default prop
+  static defaultProps = {
+    appointment: {}
+  }
+
+  componentDidMount () {
+    if(this.props.match){
+      $.ajax({
+        type: "GET",
+        url: `/appointments/${this.props.match.params.id}`,
+        datatype: "JSON"
+      }).done((data) => {
+        this.setState({appointment:data});
+      })
+    }
+  }
+
+  render () {
+    return (
+      <div className='appointment'>
+        <Link to={ `/appointments/${this.state.appointment.id}` }>
+          <h3>{this.state.appointment.title}</h3>
+        </Link>
+        <p>{formatDate(this.state.appointment.appt_time)}</p>
+      </div>
+    )
+  }
+}
+
+// export const Appointment = ({appointment}) =>
+//   <div className='appointment'>
+//
+//     <Link to={ `/appointments/${appointment.id}` }>
+//       <h3>{appointment.title}</h3>
+//     </Link>
+//
+//     <p>{formatDate(appointment.appt_time)}</p>
+//   </div>

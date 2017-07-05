@@ -29,7 +29,7 @@
 //furhter simplified
 
 import React from 'react';
-import {Appointment} from './appointment';
+import Appointment from './appointment';
 
 export const AppointmentsList = ({appointments}) => //its a name export. with const, u cannot export default
   <div>
