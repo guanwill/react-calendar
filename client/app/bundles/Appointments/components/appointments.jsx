@@ -9,6 +9,7 @@ export default class Appointments extends React.Component{
 
   constructor(props, _railsContext){ //puting rails context here gives you helpful rails helper methods
       super(props) //calls the constructor of the parent class
+      console.log(props)
       this.state = {
         appointments: this.props.appointments,
         // title: '',
