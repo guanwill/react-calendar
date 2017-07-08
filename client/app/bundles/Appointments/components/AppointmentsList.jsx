@@ -29,7 +29,7 @@
 //furhter simplified
 
 import React from 'react';
-import Appointment from './appointment';
+import Appointment from './Appointment';
 
 export const AppointmentsList = ({appointments}) => //its a name export. with const, u cannot export default
   <div>
@@ -38,4 +38,4 @@ export const AppointmentsList = ({appointments}) => //its a name export. with co
         <Appointment appointment={appointment} key={appointment.id} />
       )
     })}
-    </div>
+  </div>

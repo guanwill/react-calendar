@@ -61,7 +61,9 @@ export default class Appointment extends React.Component {
         url: `/appointments/${this.props.match.params.id}`,
         datatype: "JSON"
       }).done((data) => {
-        this.setState({appointment:data});
+        console.log('show page data in json')
+        console.log(data)
+        this.setState({appointment: data});
       })
     }
   }

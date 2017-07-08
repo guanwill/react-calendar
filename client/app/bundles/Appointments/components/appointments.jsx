@@ -7,28 +7,37 @@ import moment from 'moment'
 
 export default class Appointments extends React.Component{
 
+  static defaultProps = {
+    appointments: []
+  }
+
   constructor(props, _railsContext){ //puting rails context here gives you helpful rails helper methods
       super(props) //calls the constructor of the parent class
-      console.log(props)
+      // console.log(props)
       this.state = {
         appointments: this.props.appointments,
         // title: '',
         // appt_time: '',
         title: {value: '', valid: false},
-        appt_time: {value: '', valid: false},
+        appt_time: {value: new Date(), valid: false},
         formErrors: {},
         formValid: false
       }
   }
 
-  // getinitialstate is es5, replaced by constructor in es6
-  // getInitialState () {
-  //   return {
-  //     appointments: this.props.appointments,
-  //     title: 'Team standup meeting',
-  //     appt_time: '25 January 2016 9am'
-  //   }
-  // }
+  componentDidMount () {
+    if(this.props.match){
+      $.ajax({
+        type: "GET",
+        url: "/appointments",
+        datatype: "JSON"
+      }).done((data) => {
+        console.log('data')
+        console.log(data)
+        this.setState({appointments: data});
+      })
+    }
+  }
 
   handleUserInput = (fieldName, fieldValue, validations) => {
     const newFieldState = update(this.state[fieldName], {value: {$set: fieldValue}})
@@ -47,22 +56,6 @@ export default class Appointments extends React.Component{
 
     fieldValid = fieldErrors.length === 0;
 
-    // let fieldErrors = [];
-    // switch (fieldName) {
-    //   case 'title':
-    //     fieldValid = this.state.title.value.trim().length > 2
-    //     if(!fieldValid){
-    //       fieldErrors=[' should be at least 3 characters long'];
-    //     }
-    //     break;
-    //   case 'appt_time':
-    //     fieldValid = moment(this.state.appt_time.value).isValid() && moment(this.state.appt_time.value).isAfter();
-    //     if(!fieldValid){
-    //       fieldErrors=[' should not be in the past'];
-    //     }
-    //   default:
-    //     break;
-    // }
     const newFieldState = update(this.state[fieldName], {valid: {$set: fieldValid}});
     const newFormErrors = update(this.state.formErrors, {$merge: {[fieldName]: fieldErrors}});
     this.setState({[fieldName]: newFieldState, formErrors: newFormErrors}, this.validateForm);
