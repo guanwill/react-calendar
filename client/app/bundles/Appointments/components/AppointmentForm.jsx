@@ -114,7 +114,22 @@ export default class AppointmentForm extends React.Component{
           })
   }
 
-
+  deleteAppointment = () => {
+    if(confirm("Are you sure you want to delete?")) {
+      $.ajax({
+            type: "DELETE",
+            url: `/appointments/${this.props.match.params.id}`,
+            })
+            .done( (data) => { //function(data) {
+              alert('appt deleted')
+              this.props.history.push('/')
+              this.resetFormErrors();
+            }) //.bind(this));
+            .fail( (response) => {
+              console.log('appt deleting failed')
+            })
+    }
+  }
 
   resetFormErrors () {
     this.setState({formErrors: {} })

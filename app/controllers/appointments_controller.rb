@@ -36,6 +36,15 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @appointment = Appointment.find(params[:id])
+    if @appointment.destroy
+      head :no_content, status: :ok
+    else
+      render json: @appointment.errors, status: :unprocessable_entity
+    end
+  end
+
   def edit
     render :index
   end
