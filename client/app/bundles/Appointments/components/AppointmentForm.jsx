@@ -14,7 +14,8 @@ export default class AppointmentForm extends React.Component{
         title: {value: '', valid: false},
         appt_time: {value: '', valid: false},
         formErrors: {},
-        formValid: false
+        formValid: false,
+        editing: false
       }
   }
 
@@ -26,6 +27,24 @@ export default class AppointmentForm extends React.Component{
     appt_time: [
       (t) =>  { return(validations.timeShouldBeInTheFuture(t)) }
     ]
+  }
+
+  componentDidMount () {
+    if(this.props.match){
+      $.ajax({
+        type: "GET",
+        url: `/appointments/${this.props.match.params.id}`,
+        datatype: "JSON"
+      }).done((data) => {
+        console.log('show page data in json')
+        console.log(data)
+        this.setState({
+          title: {value: data.title, valid: true},
+          appt_time: {value: data.appt_time, valid: true},
+          editing: this.props.match.path === '/appointments/:id/edit'
+        });
+      })
+    }
   }
 
   // example of using ref on an input. eg, we make use of titleinput ref to make field on focus
@@ -61,19 +80,41 @@ export default class AppointmentForm extends React.Component{
 
   handleFormSubmit = (e) => {
     e.preventDefault();
+    this.state.editing ? this.updateAppointment() : this.addAppointment();
+  }
 
+  updateAppointment () {
+    const appointment = {title: this.state.title.value, appt_time: this.state.appt_time.value};
+    $.ajax({
+          type: "PATCH",
+          url: `/appointments/${this.props.match.params.id}`,
+          data: {appointment: appointment}
+          })
+          .done( (data) => { //function(data) {
+            console.log('appt updated')
+            this.resetFormErrors();
+          }) //.bind(this));
+          .fail( (response) => {
+            console.log(response)
+            this.setState({formErrors: response.responseJSON, formValid: false})
+          })
+  }
+
+  addAppointment() {
     const appointment = {title: this.state.title.value, appt_time: this.state.appt_time.value};
     $.post('/appointments',
             {appointment: appointment}) //replacing the below function with arrow function
-          .done( (data) => { //function(data) {
+          .done( (data) => {
             this.props.handleNewAppointment(data);
             this.resetFormErrors();
           }) //.bind(this));
           .fail( (response) => {
             console.log(response)
-            this.setState({formErrors: response.responseJSON})
+            this.setState({formErrors: response.responseJSON, formValid: false})
           })
   }
+
+
 
   resetFormErrors () {
     this.setState({formErrors: {} })
@@ -98,7 +139,8 @@ export default class AppointmentForm extends React.Component{
 
     return (
       <div>
-        <h2>Make a new appointment</h2>
+        <h2>{this.state.editing ? 'Update appointment' : 'Make new appointment'}</h2>
+
         <FormErrors formErrors={this.state.formErrors} />
 
         <form onSubmit={this.handleFormSubmit}>
@@ -113,8 +155,10 @@ export default class AppointmentForm extends React.Component{
             value={moment(this.state.appt_time.value)}
             onChange={this.setApptTime} />
 
-          <input type='submit' value='Make Appointment' className='submit-button' disabled={!this.state.formValid} />
+          <input type='submit' value={this.state.editing ? 'Update appt' : 'Make appt'} className='submit-button' disabled={!this.state.formValid} />
         </form>
+
+        {this.state.editing && (<p><button onClick={this.deleteAppointment}>Delete appt</button></p>)}
       </div>
     )
   }

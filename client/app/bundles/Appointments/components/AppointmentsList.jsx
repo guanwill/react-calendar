@@ -39,3 +39,7 @@ export const AppointmentsList = ({appointments}) => //its a name export. with co
       )
     })}
   </div>
+
+AppointmentsList.defaultProps = {
+  appointments: []
+}
