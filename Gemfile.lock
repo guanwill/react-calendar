@@ -96,6 +96,7 @@ GEM
     public_suffix (2.0.5)
     puma (3.6.2)
     rack (2.0.3)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.4)
@@ -186,6 +187,7 @@ DEPENDENCIES
   mini_racer
   pry
   puma (~> 3.0)
+  rack-cors
   rails (~> 5.0.3)
   react_on_rails (= 6.4.2)
   sass-rails (~> 5.0)
