@@ -58,3 +58,7 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'haml'
 
 gem 'mini_racer', platforms: :ruby
+
+gem 'devise_token_auth'
+gem 'omniauth'
+gem 'mysql2'

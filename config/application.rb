@@ -17,7 +17,10 @@ module Calreact
       allow do
         # origins '*'
         origins 'http://localhost:3000'
-        resource '*', :headers => :any, :methods => [:get, :post, :options]
+        resource '*',
+        :headers => :any,
+        :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+        :methods => [:get, :post, :patch, :delete, :options]
       end
     end
 
