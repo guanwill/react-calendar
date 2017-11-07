@@ -5,6 +5,8 @@ class Appointment < ApplicationRecord
 
   validate :appt_time_cannot_be_om_the_past
 
+  belongs_to :user
+
   private
 
   def appt_time_cannot_be_om_the_past
@@ -12,5 +14,5 @@ class Appointment < ApplicationRecord
       errors.add(:appt_time, "can't be in the past")
     end
   end
-  
+
 end

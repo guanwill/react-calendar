@@ -5,6 +5,7 @@ class AppointmentsController < ApplicationController
     # @appointments = current_user.appointments.order('appt_time ASC')
     # @appointment = current_user.appointments.new
     # render json: @appointments
+    # binding.pry
 
     @appointments = current_user.appointments.order('appt_time ASC')
     @appointment = current_user.appointments.new
